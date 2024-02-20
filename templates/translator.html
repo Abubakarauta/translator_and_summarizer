@@ -1,0 +1,192 @@
+{% extends 'base.html' %}
+{% load static%}
+
+{% block content%}
+
+<body>
+
+
+  <main id="main" class="main">
+
+    <div class="pagetitle">
+      <h1>Translator</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="{% static 'index' %}">Home</a></li>
+          <li class="breadcrumb-item active">Translator</li>
+        </ol>
+      </nav>
+    </div><!-- End Page Title -->
+
+    <section class="section dashboard">
+      <div class="container">
+
+
+        <!-- detection and selection of Language section -->
+        <form action="" class="form-control">
+            <div class="hstack gap-2">
+              <!-- fisrts item -->
+              <div class="col d-flex justify-content-between">
+                <div class="input-group-prepend flex-grow-1">
+            
+                  <div class="dropdown" >
+
+                    <button class="btn btn-light dropdown-toggle" type="button" id="languageDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                      Detect Language
+                    </button>
+
+
+                  
+                    <ul class="dropdown-menu  dropdown-menu-xl px-4 py-3" aria-labelledby="dropdownMenuButton">
+
+                      <li class="row ">
+                        <div class="col"><a class="dropdown-item mt-2 fs-6  " href="{% static '#' %}">English</a></div>
+                        <div class="col"><a class="dropdown-item mt-2 fs-6" href="{% static '#' %}">Spanish</a></div>
+                        <div class="col"><a class="dropdown-item mt-2 fs-6" href="{% static '#' %}">French</a></div>
+                        
+                      </li>
+                  
+                      <li class="row">
+                        <div class="col"><a class="dropdown-item mt-2 fs-6" href="{% static '#' %}">German</a></div>
+                        <div class="col"><a class="dropdown-item mt-2 fs-6" href="{% static '#' %}">Italian</a></div>
+                        <div class="col"><a class="dropdown-item mt-2 fs-6" href="{% static '#' %}">Portuguese</a></div>
+                      </li>
+                      <li class="row">
+                        <div class="col"><a class="dropdown-item mt-2 fs-6" href="{% static '#' %}">German</a></div>
+                        <div class="col"><a class="dropdown-item mt-2 fs-6" href="{% static '#' %}">Italian</a></div>
+                        <div class="col"><a class="dropdown-item mt-2 fs-6" href="{% static '#' %}">Portuguese</a></div>
+                      </li>
+
+                      <li class="row">
+                        <div class="col"><a class="dropdown-item mt-2 fs-6" href="{% static '#' %}">German</a></div>
+                        <div class="col"><a class="dropdown-item mt-2 fs-6" href="{% static '#' %}">Italian</a></div>
+                        <div class="col"><a class="dropdown-item mt-2 fs-6" href="{% static '#' %}">Portuguese</a></div>
+                      </li>
+
+                      <li class="row">
+                        <div class="col"><a class="dropdown-item mt-2 fs-6" href="{% static '#' %}">German</a></div>
+                        <div class="col"><a class="dropdown-item mt-2 fs-6" href="{% static '#' %}">Italian</a></div>
+                        <div class="col"><a class="dropdown-item mt-2 fs-6" href="{% static '#' %}">Portuguese</a></div>
+                      </li>
+                  
+                  
+                    </ul> 
+                  </div>
+                
+
+                </div>
+
+                <button class="btn btn-light">
+                  <i class="bi bi-arrow-left-right"></i>
+                </button>
+
+                </div>
+
+             
+            <div class="vr"></div>
+
+
+
+              <!-- second item -->
+              <div class="col d-flex justify-content-between">
+                <div class="input-group-prepend flex-grow-1">
+            
+                  <div class="dropdown" >
+
+                    <button class="btn btn-light dropdown-toggle" type="button" id="languageDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                      Select Language
+                    </button>
+
+
+                  
+                    <ul class="dropdown-menu  dropdown-menu-xl px-4 py-3" aria-labelledby="dropdownMenuButton">
+
+                      <li class="row ">
+                        <div class="col"><a class="dropdown-item mt-2 fs-6  " href="{% static '#' %}">English</a></div>
+                        <div class="col"><a class="dropdown-item mt-2 fs-6" href="{% static '#' %}">Spanish</a></div>
+                        <div class="col"><a class="dropdown-item mt-2 fs-6" href="{% static '#' %}">French</a></div>
+                        
+                      </li>
+                  
+                      <li class="row">
+                        <div class="col"><a class="dropdown-item mt-2 fs-6" href="{% static '#' %}">German</a></div>
+                        <div class="col"><a class="dropdown-item mt-2 fs-6" href="{% static '#' %}">Italian</a></div>
+                        <div class="col"><a class="dropdown-item mt-2 fs-6" href="{% static '#' %}">Portuguese</a></div>
+                      </li>
+                      <li class="row">
+                        <div class="col"><a class="dropdown-item mt-2 fs-6" href="{% static '#' %}">German</a></div>
+                        <div class="col"><a class="dropdown-item mt-2 fs-6" href="{% static '#' %}">Italian</a></div>
+                        <div class="col"><a class="dropdown-item mt-2 fs-6" href="{% static '#' %}">Portuguese</a></div>
+                      </li>
+
+                      <li class="row">
+                        <div class="col"><a class="dropdown-item mt-2 fs-6" href="{% static '#' %}">German</a></div>
+                        <div class="col"><a class="dropdown-item mt-2 fs-6" href="{% static '#' %}">Italian</a></div>
+                        <div class="col"><a class="dropdown-item mt-2 fs-6" href="{% static '#' %}">Portuguese</a></div>
+                      </li>
+
+                      <li class="row">
+                        <div class="col"><a class="dropdown-item mt-2 fs-6" href="{% static '#' %}">German</a></div>
+                        <div class="col"><a class="dropdown-item mt-2 fs-6" href="{% static '#' %}">Italian</a></div>
+                        <div class="col"><a class="dropdown-item mt-2 fs-6" href="{% static '#' %}">Portuguese</a></div>
+                      </li>
+                  
+                  
+                    </ul> 
+                  </div>
+                
+
+                </div>
+
+               
+                </div>
+
+            </div>
+
+            <div class="w-100"></div>
+
+       
+        </form>
+
+
+        <!-- input and output section -->
+        <form>
+
+          <div class="hstack gap-0 ">
+            
+        
+            <div class="col">
+              <div class="form-group">
+                <textarea class="form-control border-0 " rows="8" placeholder="Enter text"></textarea>  
+              </div>
+            </div>
+        
+            <div class="vr d-flex align-items-center"></div>
+        
+            <div class="col">
+              <div class="form-group">
+                <textarea class="form-control border-0" rows="8" placeholder="Output will go here..." disabled></textarea>
+              </div>
+            </div>
+        
+          </div>
+        
+        </form>
+        
+       
+
+      
+        
+
+      </div>
+    </section>
+
+  </main><!-- End #main -->
+
+  
+
+</body>
+
+</html>
+
+{% endblock content%}
