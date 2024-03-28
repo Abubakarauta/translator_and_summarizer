@@ -22,185 +22,54 @@
     <section class="section dashboard">
       <div class="container">
 
+          <!-- detection and selection of Language section -->
+          <form method="POST" action="{% url 'summarizer' %}">
+              {% csrf_token %}
+              <!-- languageDropdown -->
+              <div class="">
+                  <!-- Source Language Dropdown -->
+                  <div class="col d-flex justify-content-between">
+                      <div class="input-group-prepend flex-grow-1">
+                          <div class="dropdown mb-2" >
+                              <select class="form-select btn border btn-light form-select-lg "  style="text-align: center;" id="sourceLangInput"
+                                  aria-label="Select Language" >
+                                  <option selected disabled>Select Language</option>
+                                  <option value="en">English</option>
+                                  
+                              </select>
+                              <input type="hidden" id="sourceLangInputHidden" value="workingggggk"
+                                  name="source_lang">
+                          </div>
+                      </div>
+                  </div>                 
+              </div>
 
-        <!-- detection and selection of Language section -->
-        <form action="" class="form-control">
-            <div class="hstack gap-2">
-              <!-- fisrts item -->
-              <div class="col d-flex justify-content-between">
-                <div class="input-group-prepend flex-grow-1">
-            
-                  <div class="dropdown" >
 
-                    <button class="btn btn-light dropdown-toggle" type="button" id="languageDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                      Detect Language
-                    </button>
+              <!-- Input and Output Textareas -->
+              <div class="row">
+                  <div class="col-12">                    
+                          <textarea class="form-control border" rows="8" placeholder="Enter text"
+                              name="input_text" id="inputText"></textarea>                          
+                  </div>
 
+                  <div class="col-12 mt-3" style="text-align: center;">
+                    <button type="submit" class="btn btn-primary">Summarize Text</button>
+                  </div>
 
-                  
-                    <ul class="dropdown-menu  dropdown-menu-xl px-4 py-3" aria-labelledby="dropdownMenuButton">
+                  <div class="col-12 mt-3">
+                      <div class="form-group">
+                          <textarea class="form-control border" rows="8" placeholder="Output will go here..."
+                             style="display: none;" id="outputText"></textarea>
 
-                      <li class="row ">
-                        <div class="col"><a class="dropdown-item mt-2 fs-6  " href="{% static '#' %}">English</a></div>
-                        <div class="col"><a class="dropdown-item mt-2 fs-6" href="{% static '#' %}">Spanish</a></div>
-                        <div class="col"><a class="dropdown-item mt-2 fs-6" href="{% static '#' %}">French</a></div>
-                        
-                      </li>
-                  
-                      <li class="row">
-                        <div class="col"><a class="dropdown-item mt-2 fs-6" href="{% static '#' %}">German</a></div>
-                        <div class="col"><a class="dropdown-item mt-2 fs-6" href="{% static '#' %}">Italian</a></div>
-                        <div class="col"><a class="dropdown-item mt-2 fs-6" href="{% static '#' %}">Portuguese</a></div>
-                      </li>
-                      <li class="row">
-                        <div class="col"><a class="dropdown-item mt-2 fs-6" href="{% static '#' %}">German</a></div>
-                        <div class="col"><a class="dropdown-item mt-2 fs-6" href="{% static '#' %}">Italian</a></div>
-                        <div class="col"><a class="dropdown-item mt-2 fs-6" href="{% static '#' %}">Portuguese</a></div>
-                      </li>
-
-                      <li class="row">
-                        <div class="col"><a class="dropdown-item mt-2 fs-6" href="{% static '#' %}">German</a></div>
-                        <div class="col"><a class="dropdown-item mt-2 fs-6" href="{% static '#' %}">Italian</a></div>
-                        <div class="col"><a class="dropdown-item mt-2 fs-6" href="{% static '#' %}">Portuguese</a></div>
-                      </li>
-
-                      <li class="row">
-                        <div class="col"><a class="dropdown-item mt-2 fs-6" href="{% static '#' %}">German</a></div>
-                        <div class="col"><a class="dropdown-item mt-2 fs-6" href="{% static '#' %}">Italian</a></div>
-                        <div class="col"><a class="dropdown-item mt-2 fs-6" href="{% static '#' %}">Portuguese</a></div>
-                      </li>
-                  
-                  
-                    </ul> 
+                             <p id="outputTextDisplay">{{ translated_text }}</p>
+                      </div>
                   </div>
                 
-
-                </div>
-
-               
-                </div>
-             
-            <div class="vr"></div>
-
-
-
-              <!-- second item -->
-              <div class="col d-flex justify-content-between">
-                <div class="input-group-prepend flex-grow-1">
-            
-                  <div class="dropdown" >
-
-                    <button class="btn btn-light dropdown-toggle" type="button" id="languageDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                      Select Language
-                    </button>
-
-
-                  
-                    <ul class="dropdown-menu  dropdown-menu-xl px-4 py-3" aria-labelledby="dropdownMenuButton">
-
-                      <li class="row ">
-                        <div class="col"><a class="dropdown-item mt-2 fs-6  " href="{% static '#' %}">English</a></div>
-                        <div class="col"><a class="dropdown-item mt-2 fs-6" href="{% static '#' %}">Spanish</a></div>
-                        <div class="col"><a class="dropdown-item mt-2 fs-6" href="{% static '#' %}">French</a></div>
-                        
-                      </li>
-                  
-                      <li class="row">
-                        <div class="col"><a class="dropdown-item mt-2 fs-6" href="{% static '#' %}">German</a></div>
-                        <div class="col"><a class="dropdown-item mt-2 fs-6" href="{% static '#' %}">Italian</a></div>
-                        <div class="col"><a class="dropdown-item mt-2 fs-6" href="{% static '#' %}">Portuguese</a></div>
-                      </li>
-                      <li class="row">
-                        <div class="col"><a class="dropdown-item mt-2 fs-6" href="{% static '#' %}">German</a></div>
-                        <div class="col"><a class="dropdown-item mt-2 fs-6" href="{% static '#' %}">Italian</a></div>
-                        <div class="col"><a class="dropdown-item mt-2 fs-6" href="{% static '#' %}">Portuguese</a></div>
-                      </li>
-
-                      <li class="row">
-                        <div class="col"><a class="dropdown-item mt-2 fs-6" href="{% static '#' %}">German</a></div>
-                        <div class="col"><a class="dropdown-item mt-2 fs-6" href="{% static '#' %}">Italian</a></div>
-                        <div class="col"><a class="dropdown-item mt-2 fs-6" href="{% static '#' %}">Portuguese</a></div>
-                      </li>
-
-                      <li class="row">
-                        <div class="col"><a class="dropdown-item mt-2 fs-6" href="{% static '#' %}">German</a></div>
-                        <div class="col"><a class="dropdown-item mt-2 fs-6" href="{% static '#' %}">Italian</a></div>
-                        <div class="col"><a class="dropdown-item mt-2 fs-6" href="{% static '#' %}">Portuguese</a></div>
-                      </li>
-                  
-                  
-                    </ul> 
-                  </div>
-                
-
-                </div>
-
-               
-                </div>
-
-            </div>
-
-            <div class="w-100"></div>
-
-         
-
-          <!--       
-              <div class="row no-gutters">
-      
-                  
-                <div class="col">
-                  
-                  <textarea placeholder="Enter text to summarize" class="form-control mb-3" rows="8"></textarea>
-                </div>
-      
-                <div class="col">
-                  
-                  <textarea disabled class="form-control mb-3" rows="8"></textarea>
-                </div>
-      
               </div>
-              <hr class="my-5">
-      
-              <div class="w-100"></div>
-      
-              <div class="text-center">
-                <button class="btn btn-primary btn-lg">Translate</button>
-              </div> -->
 
-        </form>
-
-
-        <!-- input and output section -->
-        <form>
-
-          <div class="hstack gap-0 ">
-            
-        
-            <div class="col">
-              <div class="form-group">
-                <textarea class="form-control border-0 " rows="8" placeholder="Enter text"></textarea>  
-              </div>
-            </div>
-        
-            <div class="vr d-flex align-items-center"></div>
-        
-            <div class="col">
-              <div class="form-group">
-                <textarea class="form-control border-0" rows="8" placeholder="Output will go here..." disabled></textarea>
-              </div>
-            </div>
-        
-          </div>
-        
-        </form>
-        
-       
-
-      
-        
-
+          </form>
       </div>
-    </section>
+  </section>
 
     
   </main>
@@ -210,4 +79,4 @@
 </body>
 
 
-{% endblock content%}
+{% endblock content %}

@@ -1,190 +1,125 @@
 {% extends 'base.html' %}
-{% load static%}
+{% load static %}
+
 
 {% block content%}
-
 <body>
+    <main id="main" class="main">
+        <div class="pagetitle">
+            <h1>Translator</h1>
+            <nav>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{% static 'index' %}">Home</a></li>
+                    <li class="breadcrumb-item active">Translator</li>
+                </ol>
+            </nav>
+        </div><!-- End Page Title -->
 
+        <section class="section dashboard">
+            <div class="container">
 
-  <main id="main" class="main">
+                <!-- detection and selection of Language section -->
+                <form method="POST" action="{% url 'translator' %}">
+                    {% csrf_token %}
+                    <!-- languageDropdown -->
+                    <div class="col-12 form-control hstack mb-1">
+                        <!-- Source Language Dropdown -->
+                        <div class="col d-flex justify-content-between">
+                            <div class="input-group-prepend flex-grow-1">
+                                <div class="dropdown ">
+                                    <select class="form-select border-0 btn-light form-select-md" id="sourceLangInput"
+                                        aria-label="Select Source Language" onchange="updateHiddenSource()">
+                                        <option selected disabled>Select Source Language</option>
+                                        <option value="en">English</option>
+                                        <option value="ja">Japanese</option>
+                                        <option value="zh">Chinese</option>
+                                    </select>
+                                    <input type="hidden" id="sourceLangInputHidden" value="workingggggk"
+                                        name="source_lang">
+                                </div>
+                            </div>
+                        </div>
 
-    <div class="pagetitle">
-      <h1>Translator</h1>
-      <nav>
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="{% static 'index' %}">Home</a></li>
-          <li class="breadcrumb-item active">Translator</li>
-        </ol>
-      </nav>
-    </div><!-- End Page Title -->
+                        <div class="vr d-flex align-items-center"></div>
 
-    <section class="section dashboard">
-      <div class="container">
+                        <!-- Target Language Dropdown -->
+                        <div class="col d-flex justify-content-between">
+                            <div class="input-group-prepend flex-grow-1">
+                                <div class="dropdown">
+                                    <select class="form-select border-0 btn-light form-select-md" id="targetLangInput"
+                                        aria-label="Select Source Language" onchange="updateHiddenTarget()">
+                                        <option selected value="en">English</option>
+                                        <option value="ja">Japanese</option>
+                                        <option value="zh">Chinese</option>
+                                    </select>
+                                    <input type="hidden" id="targetLangInputHidden"
+                                        value="returning only the value of the hidden" name="target_lang">
+                                </div>
+                            </div>
+                        </div>
 
+                    </div>
 
-        <!-- detection and selection of Language section -->
-        <form action="" class="form-control">
-            <div class="hstack gap-2">
-              <!-- fisrts item -->
-              <div class="col d-flex justify-content-between">
-                <div class="input-group-prepend flex-grow-1">
-            
-                  <div class="dropdown" >
+                    <div class="w-100"></div>
 
-                    <button class="btn btn-light dropdown-toggle" type="button" id="languageDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                      Detect Language
-                    </button>
+                    <!-- Input and Output Textareas -->
+                    <div class="col-12  form-control hstack gap-0">
+                        <div class="col">
+                            <div class="form-group">
+                                <textarea class="form-control border-0" rows="8" placeholder="Enter text"
+                                    name="input_text" id="inputText"></textarea>
+                            </div>
+                        </div>
 
+                        <div class="vr d-flex align-items-center"></div>
 
-                  
-                    <ul class="dropdown-menu  dropdown-menu-xl px-4 py-3" aria-labelledby="dropdownMenuButton">
+                        <div class="col">
+                            <div class="form-group">
+                                <textarea class="form-control border-0" rows="8" placeholder="Output will go here..."
+                                    id="outputText"></textarea>
+                            </div>
+                        </div>
+                        <p id="outputTextDisplay">{{ translated_text }}</p>
+                    </div>
 
-                      <li class="row ">
-                        <div class="col"><a class="dropdown-item mt-2 fs-6  " href="{% static '#' %}">English</a></div>
-                        <div class="col"><a class="dropdown-item mt-2 fs-6" href="{% static '#' %}">Spanish</a></div>
-                        <div class="col"><a class="dropdown-item mt-2 fs-6" href="{% static '#' %}">French</a></div>
-                        
-                      </li>
-                  
-                      <li class="row">
-                        <div class="col"><a class="dropdown-item mt-2 fs-6" href="{% static '#' %}">German</a></div>
-                        <div class="col"><a class="dropdown-item mt-2 fs-6" href="{% static '#' %}">Italian</a></div>
-                        <div class="col"><a class="dropdown-item mt-2 fs-6" href="{% static '#' %}">Portuguese</a></div>
-                      </li>
-                      <li class="row">
-                        <div class="col"><a class="dropdown-item mt-2 fs-6" href="{% static '#' %}">German</a></div>
-                        <div class="col"><a class="dropdown-item mt-2 fs-6" href="{% static '#' %}">Italian</a></div>
-                        <div class="col"><a class="dropdown-item mt-2 fs-6" href="{% static '#' %}">Portuguese</a></div>
-                      </li>
+                    <div class="col-12 mt-3" style="text-align: left" >
+                        <button type="submit" class="btn btn-primary">Translate Text</button>
+                    </div>
 
-                      <li class="row">
-                        <div class="col"><a class="dropdown-item mt-2 fs-6" href="{% static '#' %}">German</a></div>
-                        <div class="col"><a class="dropdown-item mt-2 fs-6" href="{% static '#' %}">Italian</a></div>
-                        <div class="col"><a class="dropdown-item mt-2 fs-6" href="{% static '#' %}">Portuguese</a></div>
-                      </li>
-
-                      <li class="row">
-                        <div class="col"><a class="dropdown-item mt-2 fs-6" href="{% static '#' %}">German</a></div>
-                        <div class="col"><a class="dropdown-item mt-2 fs-6" href="{% static '#' %}">Italian</a></div>
-                        <div class="col"><a class="dropdown-item mt-2 fs-6" href="{% static '#' %}">Portuguese</a></div>
-                      </li>
-                  
-                  
-                    </ul> 
-                  </div>
-                
-
-                </div>
-
-               
-                </div>
-
-
-             
-            <div class="vr"></div>
-
-
-
-              <!-- second item -->
-              <div class="col d-flex justify-content-between">
-                <div class="input-group-prepend flex-grow-1">
-            
-                  <div class="dropdown" >
-
-                    <button class="btn btn-light dropdown-toggle" type="button" id="languageDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                      Select Language
-                    </button>
-
-
-                  
-                    <ul class="dropdown-menu  dropdown-menu-xl px-4 py-3" aria-labelledby="dropdownMenuButton">
-
-                      <li class="row ">
-                        <div class="col"><a class="dropdown-item mt-2 fs-6  " href="{% static '#' %}">English</a></div>
-                        <div class="col"><a class="dropdown-item mt-2 fs-6" href="{% static '#' %}">Spanish</a></div>
-                        <div class="col"><a class="dropdown-item mt-2 fs-6" href="{% static '#' %}">French</a></div>
-                        
-                      </li>
-                  
-                      <li class="row">
-                        <div class="col"><a class="dropdown-item mt-2 fs-6" href="{% static '#' %}">German</a></div>
-                        <div class="col"><a class="dropdown-item mt-2 fs-6" href="{% static '#' %}">Italian</a></div>
-                        <div class="col"><a class="dropdown-item mt-2 fs-6" href="{% static '#' %}">Portuguese</a></div>
-                      </li>
-                      <li class="row">
-                        <div class="col"><a class="dropdown-item mt-2 fs-6" href="{% static '#' %}">German</a></div>
-                        <div class="col"><a class="dropdown-item mt-2 fs-6" href="{% static '#' %}">Italian</a></div>
-                        <div class="col"><a class="dropdown-item mt-2 fs-6" href="{% static '#' %}">Portuguese</a></div>
-                      </li>
-
-                      <li class="row">
-                        <div class="col"><a class="dropdown-item mt-2 fs-6" href="{% static '#' %}">German</a></div>
-                        <div class="col"><a class="dropdown-item mt-2 fs-6" href="{% static '#' %}">Italian</a></div>
-                        <div class="col"><a class="dropdown-item mt-2 fs-6" href="{% static '#' %}">Portuguese</a></div>
-                      </li>
-
-                      <li class="row">
-                        <div class="col"><a class="dropdown-item mt-2 fs-6" href="{% static '#' %}">German</a></div>
-                        <div class="col"><a class="dropdown-item mt-2 fs-6" href="{% static '#' %}">Italian</a></div>
-                        <div class="col"><a class="dropdown-item mt-2 fs-6" href="{% static '#' %}">Portuguese</a></div>
-                      </li>
-                  
-                  
-                    </ul> 
-                  </div>
-                
-
-                </div>
-
-               
-                </div>
-
+                </form>
             </div>
-
-            <div class="w-100"></div>
-
-       
-        </form>
-
-
-        <!-- input and output section -->
-        <form>
-
-          <div class="hstack gap-0 ">
-            
-        
-            <div class="col">
-              <div class="form-group">
-                <textarea class="form-control border-0 " rows="8" placeholder="Enter text"></textarea>  
-              </div>
-            </div>
-        
-            <div class="vr d-flex align-items-center"></div>
-        
-            <div class="col">
-              <div class="form-group">
-                <textarea class="form-control border-0" rows="8" placeholder="Output will go here..." disabled></textarea>
-              </div>
-            </div>
-        
-          </div>
-        
-        </form>
-        
-       
-
-      
-        
-
-      </div>
-    </section>
-
-  </main><!-- End #main -->
-
-  
-
+        </section>
+    </main><!-- End #main -->
 </body>
-
-</html>
-
 {% endblock content%}
+
+{% block scripts %}
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+        var translatedText = "{{ translated_text }}";  // Get the translated text from Django template context
+        document.getElementById('outputTextDisplay').innerText = translatedText;               
+        
+        // Example of setting translated text
+        const translatedText = "Translated text here"; // Replace with actual translated text
+        document.getElementById('outputText').innerText = translatedText;
+
+        // Get the source and target language select elements
+        const sourceLangSelect = document.getElementById('sourceLangInput');
+        const targetLangSelect = document.getElementById('targetLangInput');
+        const sourceLangHidden = document.getElementById('sourceLangInputHidden');
+        const targetLangHidden = document.getElementById('targetLangInputHidden');
+
+        function updateHiddenSource() {
+            var selectedSource = document.getElementById('sourceLangInput').value;
+            sourceLangHidden.value = selectedSource;  // Update hidden field with source language value
+            console.log(sourceLangHidden)
+        }
+        function updateHiddenTarget() {
+            var selectedTarget = document.getElementById('targetLangInput').value;
+            targetLangHidden.value = selectedTarget;  // Update hidden field with target language value
+            console.log(targetLangHidden)
+        }
+    });
+
+</script>
+{% endblock scripts %}
