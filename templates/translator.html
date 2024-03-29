@@ -27,18 +27,19 @@
                         <div class="col d-flex justify-content-between">
                             <div class="input-group-prepend flex-grow-1">
                                 <div class="dropdown ">
-                                    <select class="form-select border-0 btn-light form-select-md" id="sourceLangInput"
-                                        aria-label="Select Source Language" onchange="updateHiddenSource()">
+                                    <select class="form-select border-0 btn-light form-select-md" name="source_lang" id="sourceLangInput"
+                                        aria-label="Select Source Language" >
                                         <option selected disabled>Select Source Language</option>
                                         <option value="en">English</option>
                                         <option value="ja">Japanese</option>
                                         <option value="zh">Chinese</option>
                                     </select>
-                                    <input type="hidden" id="sourceLangInputHidden" value="workingggggk"
-                                        name="source_lang">
+
                                 </div>
                             </div>
                         </div>
+
+                        
 
                         <div class="vr d-flex align-items-center"></div>
 
@@ -46,14 +47,12 @@
                         <div class="col d-flex justify-content-between">
                             <div class="input-group-prepend flex-grow-1">
                                 <div class="dropdown">
-                                    <select class="form-select border-0 btn-light form-select-md" id="targetLangInput"
-                                        aria-label="Select Source Language" onchange="updateHiddenTarget()">
+                                    <select class="form-select border-0 btn-light form-select-md" name="target_lang" id="targetLangInput"
+                                        aria-label="Select Source Language" >
                                         <option selected value="en">English</option>
                                         <option value="ja">Japanese</option>
                                         <option value="zh">Chinese</option>
                                     </select>
-                                    <input type="hidden" id="targetLangInputHidden"
-                                        value="returning only the value of the hidden" name="target_lang">
                                 </div>
                             </div>
                         </div>
@@ -73,52 +72,54 @@
 
                         <div class="vr d-flex align-items-center"></div>
 
-                        <div class="col form-group">
-                            <div class="form-control border-0">
-                                <p  rows="8" placeholder="Output will go here..."
-                                id="outputText">{{ translated_text }}</p>
+
+                        <div class="col">
+                            <div class="form-group">
+                                <textarea class="form-control border-0" rows="8" placeholder="OUTPUT WILL GO HERE"
+                                    name="output_text" id="outputText">{{ translated_text}}</textarea>
                             </div>
                         </div>
+
+                     
+
+                       
                     </div>
 
                     <div class="col-12 mt-3" style="text-align: left" >
-                        <button type="submit" class="btn btn-primary">Translate Text</button>
+                        <button id="translatorBtn" type="submit" class="btn btn-primary">Translate Text</button>
                     </div>
 
                 </form>
             </div>
         </section>
     </main><!-- End #main -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var translatedText = "{{ translated_text }}";  // Get the translated text from Django template context
+    document.getElementById('outputText').innerText = translatedText;               
+    
+    // Get the source and target language select elements
+    const sourceLangSelect = document.getElementById('sourceLangInput');
+    const targetLangSelect = document.getElementById('targetLangInput');
+    const output = document.getElementById('outputText');
+    const translatorBtn = document.getElementById('translatorBtn');
+    const form = document.querySelector('form');
+
+    translatorBtn.addEventListener('click', function() {
+        translatorBtn.textContent = 'Loading...'; // Change button text when clicked
+        output.textContent = 'Please wait while translation is in progress...';
+    });
+
+    form.addEventListener('submit', function() {
+        translatorBtn.textContent = 'Loading...'; // Change button text when form is submitted
+
+        // You can update the output text dynamically with the translation result
+        output.textContent = 'Translation result will appear here'; // Placeholder text
+    });
+});
+
+</script>    
 </body>
 {% endblock content%}
 
-{% block scripts %}
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-        var translatedText = "{{ translated_text }}";  // Get the translated text from Django template context
-        document.getElementById('outputTextDisplay').innerText = translatedText;               
-        
-        // Example of setting translated text
-        const translatedText = "Translated text here"; // Replace with actual translated text
-        document.getElementById('outputText').innerText = translatedText;
 
-        // Get the source and target language select elements
-        const sourceLangSelect = document.getElementById('sourceLangInput');
-        const targetLangSelect = document.getElementById('targetLangInput');
-        const sourceLangHidden = document.getElementById('sourceLangInputHidden');
-        const targetLangHidden = document.getElementById('targetLangInputHidden');
-
-        function updateHiddenSource() {
-            var selectedSource = document.getElementById('sourceLangInput').value;
-            sourceLangHidden.value = selectedSource;  // Update hidden field with source language value
-            console.log(sourceLangHidden)
-        }
-        function updateHiddenTarget() {
-            var selectedTarget = document.getElementById('targetLangInput').value;
-            targetLangHidden.value = selectedTarget;  // Update hidden field with target language value
-            console.log(targetLangHidden)
-        }
-    });
-
-</script>
-{% endblock scripts %}

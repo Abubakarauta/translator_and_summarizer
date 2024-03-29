@@ -14,8 +14,6 @@ def index(request):
     return render(request, 'index.html')
 
 
-
-
 def translator(request):
     if request.method == 'POST':
         input_text = request.POST.get('input_text', '')
@@ -25,10 +23,10 @@ def translator(request):
         print("this is the input the user provided:")
         print(input_text)
 
-        print("this is the language the user wants to translate:")
+        print("this is target lang:")
         print(target_lang)
 
-        print("this iss the source language")
+        print("this is the source language")
         print(source_lang)
 
         # Perform translation using the pretrained model
