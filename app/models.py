@@ -1,47 +1,26 @@
-# from django.db import models
-# from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
+from django.db import models
+from django.contrib.auth.models import AbstractUser, Group, Permission
 
-# class CustomUserManager(BaseUserManager):
-#     def create_user(self, email, password=None, **extra_fields):
-#         if not email:
-#             raise ValueError('The Email field must be set')
-#         email = self.normalize_email(email)
-#         user = self.model(email=email, **extra_fields)
-#         user.set_password(password)
-#         user.save(using=self._db)
-#         return user
+class CustomUser(AbstractUser):
+    country = models.CharField(max_length=50)
+    address = models.CharField(max_length=50)
+    job = models.CharField(max_length=20, default='', blank=True)
+    about = models.TextField(max_length=150)  # Assuming it's a TextField for longer text
+    candidate_image = models.ImageField(upload_to='profile', null=True, blank=True)
+    phone_number = models.CharField(max_length=11, default='', blank=True)
 
-#     def create_superuser(self, email, password=None, **extra_fields):
-#         extra_fields.setdefault('is_staff', True)
-#         extra_fields.setdefault('is_superuser', True)
+    gender_choices = (
+        ('male', 'Male'),
+        ('female', 'Female')
+    )
+    gender = models.CharField(max_length=7, choices=gender_choices, default='male')
 
-#         if extra_fields.get('is_staff') is not True:
-#             raise ValueError('Superuser must have is_staff=True.')
-#         if extra_fields.get('is_superuser') is not True:
-#             raise ValueError('Superuser must have is_superuser=True.')
+    groups = models.ManyToManyField(Group, verbose_name='groups', related_name='custom_user_groups')
+    user_permissions = models.ManyToManyField(
+        Permission,
+        verbose_name='user permissions',
+        related_name='custom_user_permissions'
+    )
 
-#         return self.create_user(email, password, **extra_fields)
-
-# class Users(AbstractBaseUser):
-#     first_name = models.CharField(max_length=255)
-#     last_name = models.CharField(max_length=255)
-#     email = models.EmailField(unique=True, null=False, blank=False)
-#     phone_number = models.CharField(max_length=15)
-#     created_at = models.DateTimeField(auto_now_add=True)
-#     updated_at = models.DateTimeField(auto_now=True)
-#     is_active = models.BooleanField(default=True)
-#     is_staff = models.BooleanField(default=False)
-
-#     USERNAME_FIELD = 'email'
-#     REQUIRED_FIELDS = ['first_name', 'last_name']
-
-#     objects = CustomUserManager()
-
-#     def get_full_name(self):
-#         return f'{self.first_name} {self.last_name}'
-
-#     def get_short_name(self):
-#         return self.first_name
-
-#     def __str__(self):
-#         return self.email
+    def __str__(self):
+        return f'{self.first_name} {self.last_name}'

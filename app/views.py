@@ -1,12 +1,9 @@
 from django.shortcuts import render, HttpResponseRedirect, redirect
 from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
-from django.contrib.auth import get_user_model 
-User = get_user_model()
 from .models import *
-from django.contrib.auth.forms import  UserCreationForm
-from django.core.exceptions import ValidationError
-from django.core.validators import validate_email
 from django.contrib import messages
+
+from django.contrib.auth.models import User
 
 
 # Create your views here.
@@ -80,9 +77,53 @@ def contact(request):
 
 
 
-def register(request):
-    pass
 
+
+def register(request):
+    if request.method == "POST":  # If the form has been submitted...
+        first_name = request.POST.get('first_name')
+        last_name = request.POST.get('last_name')
+        email = request.POST.get('email')
+        password1 = request.POST.get('password1')
+        password2 = request.POST.get('password2')
+        terms = request.POST.get('terms')
+        print(first_name)
+        print(last_name)
+        print(email)
+        print(password1)
+
+        # Perform form validation
+        if not first_name or not last_name:
+            messages.error(request, 'Please enter your first name and last name.')
+            return redirect('register')
+        
+        if not email:
+            messages.error(request, 'Please enter your email.')
+            return redirect('register')
+        
+        if not password1 or not password2:
+            messages.error(request, 'Please enter your password and confirm it.')
+            return redirect('register')
+        
+        if password1 != password2:
+            messages.error(request, 'Passwords do not match.')
+            return redirect('register')
+        
+        if not terms:
+            messages.error(request, 'Please accept the terms and conditions.')
+            return redirect('register')
+
+        # Create the user if all validations pass
+        try:
+            user = User.objects.create_user(username=email, email=email, password=password1, first_name=first_name, last_name=last_name)
+            user.save()
+            messages.success(request, 'Your account has been created successfully. Please log in.')
+            return render(request,'login.html')  # Redirect to the login page
+        except Exception as e:
+            messages.error(request, f'An error occurred: {str(e)}')
+            return redirect('register')
+
+    return render(request, 'pages-register.html')
 
 def login(request):
     error = ""
