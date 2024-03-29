@@ -48,7 +48,6 @@ def translator(request):
 
 
 
-
 def summarizer(request):
     if request.method == 'POST':
         input_text = request.POST.get('input_text', '')  # Assuming the input text comes from a form field named 'input_text'
@@ -66,6 +65,7 @@ def summarizer(request):
         print(summary)
         # Pass the summarized text to the template for display
         return render(request, 'summarizer.html', {'input_text': input_text, 'summary': summary})
+
     
     # If it's not a POST request, render the empty form
     return render(request, 'summarizer.html', {'input_text': '', 'summary': ''})

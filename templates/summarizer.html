@@ -21,7 +21,7 @@
     <div class="container">
 
       <!-- Detection and selection of Language section -->
-      <form method="POST" action="{% url 'summarizer' %}">
+      <form id="summarizerForm" method="POST" action="{% url 'summarizer' %}">
         {% csrf_token %}
         <!-- Language Dropdown -->
         <div class="col d-flex justify-content-between">
@@ -46,14 +46,21 @@
           </div>
 
           <div class="col-12 mt-3" style="text-align: center;">
-            <button type="submit" class="btn btn-primary">Summarize Text</button>
+            <button id="summarizeBtn" type="submit" class="btn btn-primary">Summarize Text</button>
+          </div>
+
+        
+          <div class="col-12 mt-3">
+            <div class="form-group">
+              <!-- Display the output summary here -->
+              <p id="loading" class="form-control border" rows="8" style="display: none;">Loading... please wait</p>
+            </div>
           </div>
 
           <div class="col-12 mt-3">
             <div class="form-group">
               <!-- Display the output summary here -->
-              <p class="form-control border" rows="8" {% if summary %}  style="display: block;" {% else %} style="display: none;" {% endif%}>{{ summary }}</p>
-
+              <p id="summaryOutput" class="form-control border" rows="8" {% if summary %}  style="display: block;" {% else %} style="display: none;" {% endif%}>{{ summary }}</p>
             </div>
           </div>
 
@@ -66,7 +73,23 @@
 
 </main>
 <!-- End #main -->
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('summarizerForm');
+    const summarizeBtn = document.getElementById('summarizeBtn');
+    const loading = document.getElementById('loading');
+    const summaryOutput = document.getElementById('summaryOutput');
 
+    summarizeBtn.addEventListener('click', function() {
+      summaryOutput.style.display = 'none';
+      loading.style.display = 'block';
+    });
+
+    form.addEventListener('submit', function() {
+      summarizeBtn.textContent = 'Loading...'; // Change button text
+    });
+  });
+</script>
 
 </body>
 
