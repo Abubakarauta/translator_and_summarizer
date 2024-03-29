@@ -1,79 +1,71 @@
 {% extends 'base.html' %}
-{%load static%}
- 
+{% load static %}
 
 {% block content %}
 
 <body>
 
- 
-  <main id="main" class="main">
+<main id="main" class="main">
 
-    <div class="pagetitle">
-      <h1>Summarizer</h1>
-      <nav>
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="{% static 'index.html' %}">Home</a></li>
-          <li class="breadcrumb-item active">Summarizer</li>
-        </ol>
-      </nav>
-    </div><!-- End Page Title -->
+  <div class="pagetitle">
+    <h1>Summarizer</h1>
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% static 'index.html' %}">Home</a></li>
+        <li class="breadcrumb-item active">Summarizer</li>
+      </ol>
+    </nav>
+  </div><!-- End Page Title -->
 
-    <section class="section dashboard">
-      <div class="container">
+  <section class="section dashboard">
+    <div class="container">
 
-          <!-- detection and selection of Language section -->
-          <form method="POST" action="{% url 'summarizer' %}">
-              {% csrf_token %}
-              <!-- languageDropdown -->
-              <div class="">
-                  <!-- Source Language Dropdown -->
-                  <div class="col d-flex justify-content-between">
-                      <div class="input-group-prepend flex-grow-1">
-                          <div class="dropdown mb-2" >
-                              <select class="form-select btn border btn-light form-select-lg "  style="text-align: center;" id="sourceLangInput"
-                                  aria-label="Select Language" >
-                                  <option selected disabled>Select Language</option>
-                                  <option value="en">English</option>
-                                  
-                              </select>
-                              <input type="hidden" id="sourceLangInputHidden" value="workingggggk"
-                                  name="source_lang">
-                          </div>
-                      </div>
-                  </div>                 
-              </div>
+      <!-- Detection and selection of Language section -->
+      <form method="POST" action="{% url 'summarizer' %}">
+        {% csrf_token %}
+        <!-- Language Dropdown -->
+        <div class="col d-flex justify-content-between">
+          <div class="input-group-prepend flex-grow-1">
+            <div class="dropdown mb-2">
+              <select class="form-select btn border btn-light form-select-lg" style="text-align: center;"
+                id="sourceLangInput" aria-label="Select Language">
+                <option selected disabled>Select Language</option>
+                <option value="en">English</option>
+                <!-- Add more language options as needed -->
+              </select>
+              <input type="hidden" id="sourceLangInputHidden" value="workingggggk" name="source_lang">
+            </div>
+          </div>
+        </div>
 
+        <!-- Input and Output Textareas -->
+        <div class="row">
+          <div class="col-12">
+            <textarea class="form-control border" rows="8" placeholder="Enter text" name="input_text"
+              id="inputText"></textarea>
+          </div>
 
-              <!-- Input and Output Textareas -->
-              <div class="row">
-                  <div class="col-12">                    
-                          <textarea class="form-control border" rows="8" placeholder="Enter text"
-                              name="input_text" id="inputText"></textarea>                          
-                  </div>
+          <div class="col-12 mt-3" style="text-align: center;">
+            <button type="submit" class="btn btn-primary">Summarize Text</button>
+          </div>
 
-                  <div class="col-12 mt-3" style="text-align: center;">
-                    <button type="submit" class="btn btn-primary">Summarize Text</button>
-                  </div>
+          <div class="col-12 mt-3">
+            <div class="form-group">
+              <!-- Display the output summary here -->
+              <p class="form-control border" rows="8" {% if summary %}  style="display: block;" {% else %} style="display: none;" {% endif%}>{{ summary }}</p>
 
-                  <div class="col-12 mt-3">
-                      <div class="form-group">
-                          <textarea class="form-control border" rows="8" placeholder="Output will go here..."
-                             style="display: none;" id="outputText"></textarea>
+            </div>
+          </div>
 
-                             <p id="outputTextDisplay">{{ translated_text }}</p>
-                      </div>
-                  </div>
-                
-              </div>
+        </div>
 
-          </form>
-      </div>
+      </form>
+    </div>
   </section>
 
-    
-  </main>
-  <!-- End #main -->
+
+</main>
+<!-- End #main -->
 
 
 </body>

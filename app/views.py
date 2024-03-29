@@ -48,9 +48,27 @@ def translator(request):
 
 
 
-def summarizer(request):
-    return render(request,'summarizer.html')
 
+def summarizer(request):
+    if request.method == 'POST':
+        input_text = request.POST.get('input_text', '')  # Assuming the input text comes from a form field named 'input_text'
+
+            # Load the pre-trained tokenizer and model for text summarization
+        tokenizer = AutoTokenizer.from_pretrained("Falconsai/text_summarization")
+        model = AutoModelForSeq2SeqLM.from_pretrained("Falconsai/text_summarization")
+
+
+        # Tokenize the input text and generate the summary
+        inputs = tokenizer([input_text], max_length=1024, return_tensors='pt', truncation=True)
+        summary_ids = model.generate(inputs['input_ids'], num_beams=4, max_length=150, early_stopping=True)
+        summary = tokenizer.decode(summary_ids[0], skip_special_tokens=True)
+        print("this is the summary")
+        print(summary)
+        # Pass the summarized text to the template for display
+        return render(request, 'summarizer.html', {'input_text': input_text, 'summary': summary})
+    
+    # If it's not a POST request, render the empty form
+    return render(request, 'summarizer.html', {'input_text': '', 'summary': ''})
 
 def usersProfile(request):
     return render(request, 'usersProfile.html')
