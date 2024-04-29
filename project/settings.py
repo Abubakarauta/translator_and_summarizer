@@ -41,6 +41,9 @@ INSTALLED_APPS = [
     
 ]
 
+# AUTH_USER_MODEL = 'app.CustomUser'  # Replace 'yourapp' with the actual name of your Django app
+
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -117,13 +120,13 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
-STATIC_URL = 'static/'
-static_root = BASE_DIR /'staticFiles'  # static files will be served from here
-STATICFILES_DIRS = [BASE_DIR/'static',]  # Django will not look for static files in any other
+STATIC_URL = '/static/'  # URL prefix for static files
+STATIC_ROOT = BASE_DIR / 'staticFiles'  # Directory where static files will be collected for deployment
+STATICFILES_DIRS = [BASE_DIR / 'static']  # Additional directories for static files (e.g., CSS, JavaScript)
 
-MEDIA_URL='media/'
-MEDIA_ROOT = BASE_DIR/'media'
 
+MEDIA_URL = '/media/'  # URL prefix for media files
+MEDIA_ROOT = BASE_DIR / 'media'  # Directory where media files will be stored
 
 
 

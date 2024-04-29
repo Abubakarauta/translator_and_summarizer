@@ -49,7 +49,7 @@
               <div class="d-flex justify-content-center py-4">
                 <a href="{% url 'index' %}" class="logo d-flex align-items-center w-auto">
                   <img src="{% static 'assets/img/logo.png' %}" alt="">
-                  <span class="d-none d-lg-block">NiceAdmin</span>
+                  <span class="d-none d-lg-block">NiceAI</span>
                 </a>
               </div><!-- End Logo -->
 
@@ -64,7 +64,7 @@
 
 
                     {% if messages %}
-                      <ul class="messages">
+                      <ul class="alert alert-danger">
                         {% for message in messages %}
                           <li class="error">{{ message }}</li>
                         {% endfor %}
@@ -72,52 +72,74 @@
                     {% endif %}
 
 
-                  <form action="{% url 'register' %}" method="POST" role="form" method="POST" >
-                    {% csrf_token %}
+                    {% if form.errors %}                    
 
-                    <div class="col-12 mb-3">
-                      <input type="text" name="first_name" class="form-control" id="firstName" placeholder="First Name" required>
-                      <div class="invalid-feedback">Please, enter your first name!</div>
+                    <div class="alert alert-danger">
+                        <ul>
+                            {% for field, errors in form.errors.items %}
+                            {% for error in errors %}
+                            <li>{{ field|capfirst }}: {{ error }}</li>
+                            {% endfor %}
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    {% endif %}
+
+                    <form action="{% url 'register' %}" method="POST" role="form">
+                      {% csrf_token %}
+                  
+                      <div class="col-12 mb-3">
+                          <input type="text" name="username" class="form-control" id="username" placeholder="Username" required>
+                          <div class="invalid-feedback">Please enter a username.</div>
+                      </div>
+                  
+                      <div class="col-12 mb-3">
+                          <input type="email" name="email" class="form-control" id="email" placeholder="Email" required>
+                          <div class="invalid-feedback">Please enter a valid email address.</div>
+                      </div>
+                      <div class="col-12 mb-3">
+                        <input type="password" name="password1" class="form-control" id="password1" placeholder="Password" required>
+                        <div class="invalid-feedback">Please enter a password.</div>
                     </div>
                     
                     <div class="col-12 mb-3">
-                      <input type="text" name="last_name" class="form-control" id="lastName" placeholder="Last Name">
-                      <div class="invalid-feedback">Please, enter your last name!</div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="togglePassword1">
+                            <label class="form-check-label" for="togglePassword1">Show Password</label>
+                        </div>
                     </div>
-
+                    
                     <div class="col-12 mb-3">
-                      <input type="email" name="email" class="form-control" id="yourEmail" placeholder="Email" required>
-                      <div class="invalid-feedback">Please enter a valid Email adddress!</div>
+                        <input type="password" name="password2" class="form-control" id="password2" placeholder="Confirm Password" required>
+                        <div class="invalid-feedback">Please confirm your password.</div>
                     </div>
-
-            
+                    
                     <div class="col-12 mb-3">
-                      <input type="password" name="password1" class="form-control" id="Password1" placeholder="password" required>
-                      <div class="invalid-feedback">Please enter your password!</div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="togglePassword2">
+                            <label class="form-check-label" for="togglePassword2">Show Password</label>
+                        </div>
                     </div>
-
+                    
+                    
                     <div class="col-12 mb-3">
-                      <input type="password" name="password2" class="form-control" id="Password2" placeholder="confirm password" required>
-                      <div class="invalid-feedback">confirm your password!</div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="terms" id="acceptTerms" required>
+                            <label class="form-check-label" for="acceptTerms">I agree to the <a href="{% static '#' %}">terms and conditions</a></label>
+                            <div class="invalid-feedback">You must agree to the terms and conditions.</div>
+                        </div>
                     </div>
-
+                    
                     <div class="col-12 mb-3">
-                      <div class="form-check">
-                        <input class="form-check-input" name="terms" type="checkbox" value="" id="acceptTerms" required>
-                        <label class="form-check-label" for="acceptTerms">I agree and accept the <a href="{% static '#' %}">terms and conditions</a></label>
-                        <div class="invalid-feedback">You must agree before submitting.</div>
+                        <button class="btn btn-primary w-100" type="submit">Create Account</button>
+                    </div>
+                    
+                  
+                      <div class="col-12 mb-3">
+                          <p class="small mb-0">Already have an account? <a href="{% url 'login' %}">Log in</a></p>
                       </div>
-                    </div>
-
-                    <div class="col-12 mb-3">
-                      <button class="btn btn-primary w-100" type="submit">Create Account</button>
-                    </div>
-
-                    <div class="col-12 mb-3">
-                      <p class="small mb-0">Already have an account? <a href="{% url 'login' %}">Log in</a></p>
-                    </div>
                   </form>
-
+                  
                 </div>
               </div>
 
@@ -146,6 +168,33 @@
 
   <!-- Template Main JS File -->
   <script src="{% static 'assets/js/main.js' %}"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const togglePassword1 = document.getElementById('togglePassword1');
+        const passwordInput1 = document.getElementById('password1');
+        
+        const togglePassword2 = document.getElementById('togglePassword2');
+        const passwordInput2 = document.getElementById('password2');
+
+        togglePassword1.addEventListener('change', function () {
+            if (togglePassword1.checked) {
+                passwordInput1.type = 'text';
+            } else {
+                passwordInput1.type = 'password';
+            }
+        });
+
+        togglePassword2.addEventListener('change', function () {
+            if (togglePassword2.checked) {
+                passwordInput2.type = 'text';
+            } else {
+                passwordInput2.type = 'password';
+            }
+        });
+    });
+</script>
+
+
 
 </body>
 
