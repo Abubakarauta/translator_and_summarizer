@@ -1,13 +1,13 @@
 ## translator_and_summarizer
 
-This project details the development of a web-based application designed to offer functionalities for translation and potentially other text processing tasks. 
+This project details the development of a web-based application designed to offer functionalities for translation and potentially other text-processing tasks. 
 
 **Project Goals:**
 
 * Develop a user-friendly web application using Django as the framework.
 * Offer a responsive user interface built with HTML, CSS, and Bootstrap for accessibility across devices.
-* Integrate Hugging Face Transformers to leverage pre-trained machine learning models for translation tasks. 
-* Explore the integration of additional Hugging Face models for functionalities like text summarization and transaltion.
+* Integrate Hugging Face Transformers to leverage pre-trained machine-learning models for translation tasks. 
+* Explore the integration of additional Hugging Face models for functionalities like text summarization and translation.
 * Securely store application data using Django's built-in relational database.
 
 **Note: Installation Considerations**
@@ -22,7 +22,7 @@ The installation process for this project involves downloading dependencies that
 2. **Clone the Repository:**
     ```bash
     git clone https://github.com/Abubakarauta/translator_and_summarizer
-    cd *translator_and_summarizer*
+    cd translator_and_summarizer
     ```
 3. **Install Dependencies:**
     ```bash
@@ -52,7 +52,7 @@ The project directory is organized to promote maintainability and clarity. Here'
         * **managers.py:** (Optional) Contains custom database managers for complex data manipulation logic.
         * **utils.py:** Houses utility functions for common tasks across the application, like text pre-processing for the models.
     * **templates** (contains HTML templates for the user interface)
-        * **base.html:** The base template defining the overall layout of the web pages.
+        * **base.html:** The base template defines the overall layout of the web pages.
         * **index.html:** The main page template for user interaction with translation and summarization functionalities.
         * **other_templates.html:** Additional templates for specific functionalities like settings or history.
     * **views.py:** Contains functions (views) that handle user requests and interact with the application logic. These views will process user input, call the translation or summarization models, and render the response templates.
